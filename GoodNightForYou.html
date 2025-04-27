@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🌙 GoodNightForLiCi 🌙</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.8);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      position: relative;
+      width: 90%; /* Chiếm 90% chiều rộng màn hình */
+      max-width: 500px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: #ff6f61;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.2rem;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .score {
+      font-size: 1.5rem;
+      color: #333;
+      margin-top: 20px;
+    }
+
+    .game-over {
+      font-size: 1.8rem;
+      color: #ff6f61;
+      margin-top: 20px;
+      font-weight: bold;
+      display: none;
+    }
+
+    .reward {
+      font-size: 1.8rem;
+      color: #4CAF50;
+      margin-top: 20px;
+      font-weight: bold;
+      display: none;
+    }
+
+    .emoji {
+      position: absolute;
+      font-size: 3.5rem; /* Kích thước emoji lớn */
+      cursor: pointer;
+      animation: fall 5s linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        top: -10%;
+        opacity: 1;
+      }
+      100% {
+        top: 110%;
+        opacity: 1;
+      }
+    }
+
+    button {
+      background-color: #ff9a9e;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 30px;
+      color: white;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin-top: 20px;
+    }
+
+    button:hover {
+      background-color: #fad0c4;
+    }
+
+    /* CSS cho thiết bị di động */
+    @media (max-width: 600px) {
+      .container {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      .score, .game-over, .reward {
+        font-size: 2.5rem;
+      }
+
+      .emoji {
+        font-size: 2.5rem; /* Giảm kích thước emoji thêm một chút trên di động */
+      }
+
+      button {
+        padding: 10px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🌙 Chúc ai đó ngủ ngon nhaaa! 🌙</h1>
+    <p>Mơ những giấc mơ thật đẹp và ngủ một giấc thật sweet nhé! 😴✨</p>
+    <p><strong>Một chút funnyy trước khi ngủ nè:</strong> Cứ bấm vào các emoji thui. Mỗi lần nhấn vào emoji sẽ cộng thêm 10 điểm! Đạt 100 điểm để nhận phần thưởng đặc biệt á ^^. 🎉</p>
+    <button id="magicButton">Bấm vào này nè 💖 chơi xong rồi bấm hay sao cũm được :)</button>
+    <div class="score" id="score">Điểm: 0</div>
+    <div class="game-over" id="gameOver">Chúc Ngủ Ngon! 💤💖</div>
+    <div class="reward" id="reward">Suri thắng rồi nèeeeeeeee! 🎉🥳 Phần thưởng: Cocainjt ;))</div>
+  </div>
+
+  <script>
+    const button = document.getElementById('magicButton');
+    const emojis = ['😴', '🌙', '✨', '💤', '🌟', '🛌', '😇', '🐑', '💖', '🥱'];
+    const scoreElement = document.getElementById('score');
+    const gameOverElement = document.getElementById('gameOver');
+    const rewardElement = document.getElementById('reward');
+
+    let score = 0;
+    let gameActive = true;
+
+    // Tạo emoji rơi xuống
+    function createEmoji() {
+      if (!gameActive) return;
+
+      const emoji = document.createElement('div');
+      emoji.classList.add('emoji');
+      emoji.style.left = Math.random() * 100 + 'vw';
+
+      // Sử dụng tốc độ rơi ngẫu nhiên từ 2s đến 5s
+      const animationDuration = (Math.random() * 3 + 2) + 's';
+      emoji.style.animationDuration = animationDuration;
+
+      emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+
+      // Khi người chơi nhấn vào emoji
+      emoji.addEventListener('click', () => {
+        if (gameActive) {
+          score += 10; // Cộng điểm mỗi lần nhấn vào emoji
+          scoreElement.textContent = 'Điểm: ' + score;
+
+          // Kiểm tra nếu đạt 100 điểm
+          if (score >= 100) {
+            gameActive = false; // Dừng trò chơi khi đạt 100 điểm
+            gameOverElement.style.display = 'block';
+            rewardElement.style.display = 'block'; // Hiển thị phần thưởng
+          }
+        }
+      });
+
+      document.body.appendChild(emoji);
+    }
+
+    // Tạo emoji rơi xuống mỗi 300ms
+    setInterval(createEmoji, 300);
+
+    // Khi bấm nút "Bấm vào tui nè 💖", mở video Rick Roll
+    button.addEventListener('click', () => {
+      window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'; // Link Rick Roll
+    });
+  </script>
+</body>
+</html>
