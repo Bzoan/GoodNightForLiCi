@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>🌙 GoodNightForLiCi 🌙</title>
+  <title>🌙 GoodNightForLiCi🌙</title>
   <style>
     body {
       margin: 0;
@@ -65,7 +65,7 @@
 
     .emoji {
       position: absolute;
-      font-size: 3.5rem; /* Kích thước emoji lớn */
+      font-size: 3.5rem; /* Giảm kích thước emoji */
       cursor: pointer;
       animation: fall 5s linear infinite;
     }
@@ -124,12 +124,12 @@
 <body>
   <div class="container">
     <h1>🌙 Chúc ai đó ngủ ngon nhaaa! 🌙</h1>
-    <p>Mơ những giấc mơ thật đẹp và ngủ một giấc thật sweet nhé! 😴✨</p>
+    <p>Mơ những giấc mơ thật đẹp và ngủ một giấc thật sweets nhé! 😴✨</p>
     <p><strong>Một chút funnyy trước khi ngủ nè:</strong> Cứ bấm vào các emoji thui. Mỗi lần nhấn vào emoji sẽ cộng thêm 10 điểm! Đạt 100 điểm để nhận phần thưởng đặc biệt á ^^. 🎉</p>
     <button id="magicButton">Bấm vào này nè 💖 chơi xong rồi bấm hay sao cũm được :)</button>
     <div class="score" id="score">Điểm: 0</div>
     <div class="game-over" id="gameOver">Chúc Ngủ Ngon! 💤💖</div>
-    <div class="reward" id="reward">Suri thắng rồi nèeeeeeeee! 🎉🥳 Phần thưởng: Cocainjt ;))</div>
+    <div class="reward" id="reward">Suri thắng rồi nèeeeeeeee! 🎉🥳 Phần thưởng: Cocainjt ;)) </div>
   </div>
 
   <script>
@@ -142,7 +142,6 @@
     let score = 0;
     let gameActive = true;
 
-    // Tạo emoji rơi xuống
     function createEmoji() {
       if (!gameActive) return;
 
@@ -168,6 +167,9 @@
             gameOverElement.style.display = 'block';
             rewardElement.style.display = 'block'; // Hiển thị phần thưởng
           }
+
+          // Xóa emoji sau khi nhấn vào
+          emoji.remove();
         }
       });
 
